@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="modal" id="deleteTaskConfirmationModal" data-taskid="">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <div class="box">
+      <div class="content">
+        <p class="has-text-centered">Are you sure you want to delete the task?</p>
+        <div class="buttons is-centered">
+          <button class="button is-success" id="confirmYes">Yes</button>
+          <button class="button is-danger" id="confirmNo">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>
+
+<div class="container">
+  <div class="card todo-list-wrapper">
+    <header class="card-header">
+      <p class="card-header-title">
+        Todo
+      </p>
+    </header>
+    <div class="card-content">
+      <form method="post" id="add_task">
+        <div class="field is-grouped">
+            <p class="control is-expanded">
+              <input class="input" name="task-desc" id="task-desc" type="text" placeholder="New task">
+            </p>
+            <p class="control">
+              <input type="submit" value="Add" class="button is-primary">
+            </p>
+          </form>
+        </div>
+      </form>
+
+      <ul class="todo-list">
+        {% for task in tasks %}
+            <li class="todo-item">
+            <div class="field is-hidden edit-task-input edit-task-input-{{ task.id}}" >
+              <p class="control is-expanded">
+                <input class="input" type="text" value="{{ task.desc }}">
+              </p>
+            </div>
+              <span class="todo-desc-{{ task.id}}">{{ task.desc }}</span>
+              <div class="todo-buttons">
+                  <button class="button is-primary is-small edit-task taskid-{{ task.id}}" data-taskid="{{ task.id}}">
+                    <span class="icon">
+                      <i class="fas fa-pencil-alt"></i>
+                    </span>
+                  </button>
+                  <button class="button is-danger is-small delete-task taskid-{{ task.id}}" data-taskid="{{ task.id}}">
+                    <span class="icon">
+                      <i class="fas fa-trash-alt"></i>
+                    </span>
+                  </button>
+                  <button class="button is-primary is-hidden is-small save-task taskid-{{ task.id}}" data-taskid="{{ task.id}}">
+                    <span class="icon">
+                      <i class="fas fa-floppy-disk"></i>
+                    </span>
+                  </button>
+              </div>
+            </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}
